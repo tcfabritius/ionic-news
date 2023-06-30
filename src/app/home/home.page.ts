@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NewsArticlesService } from '../api/news-articles.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,17 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  selectedCategory:any = 'technology'
+  topHeadlines:any = []
+
+  constructor(private articleService:NewsArticlesService) {
+    articleService.getTopHeadlines().subscribe((results) => {
+      this.topHeadlines.push(...results.articles)
+    })
+
+    articleService.getArticleByCategory().subscribe((results) => {
+
+    })
+  }
 
 }
